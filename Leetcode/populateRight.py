@@ -10,13 +10,23 @@ class Node(object):
 
 class Solution(object):
     def connect(self, root):
-        if root is None or root.left is None:
-            return root
         
-        root.left.next = root.right
-        if root.next:
-            root.right.next = root.next.left
+        def levels(root):
+            if root is None or root.left is None:
+                return root
+        
+            root.left.next = root.right
+            if root.next is not None:
+                root.right.next = root.next.left
             
-        self.connect(root.left)
-        self.connect(root.right)
-        return root
+            levels(root.left)
+            levels(root.right)
+            return root
+    
+        return levels(root)
+        
+#---------------Solution Stats---------------#
+#          Test Cases Passed: 39/39
+#Runtime: 50ms (Top 15% of Python Submissions)
+#Memory Usage: 16.3MB (Top 25% of Python Submissions)
+#--------------------------------------------#
