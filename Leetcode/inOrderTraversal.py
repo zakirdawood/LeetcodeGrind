@@ -1,20 +1,32 @@
-# Definition for a binary tree node.
-# class TreeNode(object):
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+"""
+# Definition for a Node.
+class Node(object):
+    def __init__(self, val=0, left=None, right=None, next=None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
 class Solution(object):
-    def inorderTraversal(self, root):
-        result = []
+    def connect(self, root):
         
-        def dfs(root, result):
-            if root is None:
-                return
-            dfs(root.left, result)
-            result.append(root.val)
-            dfs(root.right, result)
-            return result
+        def levels(root):
+            if root is None or root.left is None:
+                return root
         
-        dfs(root, result)
-        return result
+            root.left.next = root.right
+            if root.next is not None:
+                root.right.next = root.next.left
+            
+            levels(root.left)
+            levels(root.right)
+            return root
+    
+        return levels(root)
+        
+#---------------Solution Stats---------------#
+#          Test Cases Passed: 39/39
+#Runtime: 50ms (Top 15% of Python Submissions)
+#Memory Usage: 16.3MB (Top 25% of Python Submissions)
+#--------------------------------------------#
