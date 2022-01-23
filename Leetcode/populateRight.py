@@ -9,24 +9,22 @@ class Node(object):
 """
 
 class Solution(object):
-    def connect(self, root):
+    def inorderTraversal(self, root):
+        result = []
         
-        def levels(root):
-            if root is None or root.left is None:
-                return root
-        
-            root.left.next = root.right
-            if root.next is not None:
-                root.right.next = root.next.left
-            
-            levels(root.left)
-            levels(root.right)
-            return root
-    
-        return levels(root)
+        self.dfs(root, result)
+        return result
+
+    def dfs(self, root, result):
+        if root is None:
+                return
+        self.dfs(root.left, result)
+        result.append(root.val)
+        self.dfs(root.right, result)
+        return result
         
 #---------------Solution Stats---------------#
-#          Test Cases Passed: 39/39
-#Runtime: 50ms (Top 15% of Python Submissions)
-#Memory Usage: 16.3MB (Top 25% of Python Submissions)
+#          Test Cases Passed: 70/70
+#Runtime: 20.2ms (Top 50% of Python Submissions)
+#Memory Usage: 13.2MB (Top 5% of Python Submissions)
 #--------------------------------------------#
